@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#7b3fd1">
+  <title>Story Studio · Aria's Web</title>
+  <link rel="icon" href="../apple-touch-icon.png">
+  <link rel="stylesheet" href="../css/site.css">
+  <link rel="stylesheet" href="../css/aria.css">
+  <link rel="stylesheet" href="story.css">
+</head>
+<body class="game story-page" data-page="Story Studio">
+  <header class="story-top">
+    <a class="home-link" href="../index.html" data-site-link>← Aria's Web</a>
+    <h1>✍️ Story Studio</h1>
+  </header>
+  <main class="story-wrap">
+    <section class="story-card" id="pick">
+      <h2>Pick a spark</h2>
+      <div class="genres" role="group" aria-label="Story type">
+        <button type="button" data-genre="lanternblade" class="genre on">🏮 LANTERNBLADE</button>
+        <button type="button" data-genre="fantasy" class="genre">🐉 Fantasy</button>
+        <button type="button" data-genre="mystery" class="genre">🔎 Mystery</button>
+        <button type="button" data-genre="funny" class="genre">😂 Funny</button>
+        <button type="button" data-genre="everyday" class="genre">🏫 Real life</button>
+      </div>
+      <div class="modes" role="group" aria-label="Mode">
+        <button type="button" data-mode="finish" class="mode on">Finish the story</button>
+        <button type="button" data-mode="prompt" class="mode">Story prompt</button>
+        <button type="button" data-mode="free" class="mode">Blank page</button>
+      </div>
+      <blockquote id="spark" class="spark" aria-live="polite"></blockquote>
+      <div class="row">
+        <button type="button" id="another" class="soft-btn">🎲 Another spark</button>
+        <button type="button" id="hear-spark" class="soft-btn">🔊 Hear it</button>
+      </div>
+    </section>
+
+    <section class="story-card">
+      <label for="title" class="lbl">Title</label>
+      <input id="title" class="title-in" maxlength="80" placeholder="My story">
+      <label for="story" class="lbl">Your story</label>
+      <textarea id="story" rows="12" placeholder="Start writing here. There are no wrong answers in a story."></textarea>
+      <div class="meta">
+        <span id="count">0 words</span>
+        <span id="saved" class="saved" aria-live="polite"></span>
+      </div>
+      <div class="row">
+        <label class="timer-lbl">Calm timer (optional):
+          <select id="timer">
+            <option value="0" selected>Off</option>
+            <option value="5">5 minutes</option>
+            <option value="10">10 minutes</option>
+            <option value="15">15 minutes</option>
+          </select>
+        </label>
+        <span id="timer-left" class="timer-left" aria-live="polite"></span>
+      </div>
+      <p id="timer-note" class="timer-note" hidden>⏳ Time's up, but no rush. Finish your sentence, then take a stretch.</p>
+      <div class="row">
+        <button type="button" id="read" class="soft-btn">🔊 Read my story to me</button>
+        <button type="button" id="save" class="soft-btn">💾 Save</button>
+        <button type="button" id="download" class="soft-btn">⬇️ Download</button>
+        <button type="button" id="new" class="soft-btn">📄 New story</button>
+      </div>
+    </section>
+
+    <section class="story-card">
+      <h2>My stories</h2>
+      <ul id="shelf" class="shelf"></ul>
+      <p class="tiny">Stories are saved only on this device.</p>
+    </section>
+  </main>
+  <script src="../settings.js"></script>
+  <script src="story.js"></script>
+  <script src="../js/kid-switch.js"></script>
+</body>
+</html>
