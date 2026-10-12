@@ -37,6 +37,11 @@
   }
 
   function speak(text, lang, keep) {
+    if (window.KidsVoice && text) {
+      /* Pre-made neural clips (audio/); browser voice only when a clip is missing. */
+      window.KidsVoice.say([{ text: text, lang: lang || "en" }], { interrupt: !keep, rate: opts().speechRate });
+      return;
+    }
     try {
       if (!window.speechSynthesis || !text) return;
       var voice = voiceFor(lang);
@@ -83,14 +88,14 @@
     hear.type = "button";
     hear.className = "q-speak";
     hear.textContent = "Hear it";
-    hear.hidden = !voiceFor(question.speakLang);
+    hear.hidden = !window.KidsVoice && !voiceFor(question.speakLang);
     function readAll() {
       speak(question.speak || question.prompt, question.speakLang);
       if (!opts().readChoices) return;
       var plain = question.choices.every(function (c) { return !hasHebrew(c) && !hasThai(c) && !hasCyrillic(c); });
-      if (plain) speak(question.choices.join(". ") + ".", "en-US", true);
+      if (plain && !window.KidsVoice) speak(question.choices.join(". ") + ".", "en-US", true);
       else question.choices.forEach(function (c) {
-        speak(c, hasHebrew(c) ? "he-IL" : hasThai(c) ? "th-TH" : "en-US", true);
+        speak(c, hasHebrew(c) ? "he-IL" : hasJapanese(c) ? "ja-JP" : hasThai(c) ? "th-TH" : "en-US", true);
       });
     }
     hear.addEventListener("click", readAll);
@@ -102,7 +107,7 @@
     parent.appendChild(hear);
     if (window.speechSynthesis && hear.hidden) {
       window.speechSynthesis.onvoiceschanged = function () {
-        hear.hidden = !voiceFor(question.speakLang);
+        hear.hidden = !window.KidsVoice && !voiceFor(question.speakLang);
       };
     }
 

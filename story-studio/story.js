@@ -143,8 +143,12 @@
   pickGroup(".mode", "data-mode", function (v) { mode = v; });
 
   $("another").addEventListener("click", newSpark);
-  $("hear-spark").addEventListener("click", function () { speak(sparkText); });
-  $("read").addEventListener("click", function () { speak((title.value ? title.value + ". " : "") + story.value); });
+  /* Story starters play a pre-made clip; "Read my story to me" stays on the browser voice (free text). */
+  $("hear-spark").addEventListener("click", function () {
+    if (window.KidsVoice) window.KidsVoice.say([{ text: sparkText, lang: "en" }], { rate: 0.95 });
+    else speak(sparkText);
+  });
+  $("read").addEventListener("click", function () { if (window.KidsVoice) window.KidsVoice.cancel(); speak((title.value ? title.value + ". " : "") + story.value); });
   $("save").addEventListener("click", function () { save(false); });
   $("new").addEventListener("click", function () { save(true); current = null; title.value = ""; story.value = mode === "finish" ? sparkText + " " : ""; updateCount(); $("saved").textContent = ""; });
   $("download").addEventListener("click", function () {
