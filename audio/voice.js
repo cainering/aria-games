@@ -3,6 +3,7 @@
    has no clip. Clips are synthetic voices only.
    Key = cyrb53 hash of "<lang>|<voice>|<text>" (text whitespace-collapsed).
    say(parts, opts): parts = [{ text, lang: "en"|"he"|"th"|"ja", voice?: "tommy" }]
+   or [{ src: "fx/horse-neigh.mp3", text?: fallback words }] for a sound-effect file under audio/
    opts: interrupt (default true), rate/pitch (fallback only), skipMissing
    (fallback: skip non-English parts when the device has no voice), onend. */
 (function (root) {
@@ -110,7 +111,11 @@
     if (item.done) { try { item.done(); } catch (e) {} return next(my); }
     whenReady(function () {
       if (my !== gen) return;
-      var p = item.p, k = keyFor(p.text, p.lang, p.voice);
+      var p = item.p, k = p.src ? "" : keyFor(p.text, p.lang, p.voice);
+      if (p.src) return playClip(base + p.src, function (ok) {   /* a sound effect file, e.g. fx/horse-neigh.mp3 */
+        if (my !== gen) return;
+        if (ok || !p.text) next(my); else fallback(p, item.o, function () { next(my); });
+      });
       if (have[k]) playClip(base + "clips/" + k + ".mp3", function (ok) {
         if (my !== gen) return;
         if (ok) next(my); else fallback(p, item.o, function () { next(my); });
@@ -129,7 +134,7 @@
     if (o.interrupt !== false) cancel();
     parts.forEach(function (p) {
       if (typeof p === "string") p = { text: p, lang: "en" };
-      if (p && norm(p.text)) queue.push({ p: p, o: o });
+      if (p && (p.src || norm(p.text))) queue.push({ p: p, o: o });
     });
     if (o.onend) queue.push({ done: o.onend });
     if (!busy) next(gen);
