@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#06060d">
+  <title>Math Dojo</title>
+  <link rel="icon" href="../apple-touch-icon.png">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Exo+2:wght@600;800&family=Orbitron:wght@600;800&family=Rajdhani:wght@500;600;700&family=Shippori+Mincho:wght@600;800&display=swap">
+  <link rel="stylesheet" href="../css/hub.css">
+  <link rel="stylesheet" href="dojo.css">
+  <script src="../js/aria-core.js"></script>
+</head>
+<body class="dojo" data-page="Math Dojo">
+  <header class="topbar">
+    <a class="icon-btn" href="../index.html" id="back" data-site-link>← Hub</a>
+    <div class="brand"><span class="logo" id="gTitle">Math Dojo</span><span class="sub" id="gSkill"></span></div>
+    <div class="progress" id="prog" aria-label="Progress"></div>
+    <span class="xp-live" id="xpLive">+0 XP</span>
+  </header>
+  <main class="shell" id="app"></main>
+  <div class="overlay" id="stuck" hidden><div class="sheet stuck-sheet" role="dialog" aria-modal="true" aria-labelledby="stuckH">
+    <h2 id="stuckH">Where am I stuck?</h2>
+    <p class="lead">Pick the sentence that fits. Saying exactly where you're stuck is a real skill, and the same sentences work with your teacher in class.</p>
+    <div class="phrases">
+      <button type="button" data-k="here"><b>"I understand up to here, but not this step."</b><span>Get a hint for just this step.</span></button>
+      <button type="button" data-k="start"><b>"I don't know how to start."</b><span>Get the first move.</span></button>
+      <button type="button" data-k="example"><b>"Can you show me an example?"</b><span>See one like it with different numbers.</span></button>
+      <button type="button" data-k="check"><b>"I have an answer, but I'm not sure it's right."</b><span>Get a way to check it yourself.</span></button>
+    </div>
+    <div class="sheet-foot"><span></span><button type="button" class="btn ghost" id="stuckClose">Never mind</button></div>
+  </div></div>
+  <script src="../settings.js"></script>
+  <script src="../story/chapters.js"></script>
+  <script src="engine.js"></script>
+  <script src="../js/aria-fx.js"></script>
+  <script src="dojo.js"></script>
+</body>
+</html>

@@ -1,21 +1,46 @@
-/* Aria's Web: a LANTERNBLADE night-sky theme (purple + lantern gold). */
+/* Aria's Web: night skin for the older pages (Practice, Treasure Map, Story Studio, Logic Grid).
+   Colors follow the theme she picked in My Hub (js/aria-core.js sets the --a1/--bg vars). */
 :root {
-  --ink: #2a1650;
-  --ink-soft: #5a3f8c;
-  --sky-top: #e9ddff;
-  --sky-mid: #a57ff0;
-  --sky-deep: #7b3fd1;
-  --line: #3b1f73;
-  --sun: #ffd166;
-  --shadow: 0 8px 0 #3b1f73;
+  --bg: #06060d; --bg2: #120a24; --a1: #00f0ff; --a2: #ff2bd6; --text: #e9f7ff; --soft: #8fa6c4;
+  --font: -apple-system, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif;
+  --ink: #141226; --ink-soft: #4a4866; --line: #2a2840; --sun: var(--a1);
+  --shadow: 0 10px 30px rgba(0,0,0,.35);
 }
-body.home { background: linear-gradient(180deg, #2b1a55 0%, #5b34b0 45%, #9a72ea 100%); }
-body.home .hero h1, body.home .hero .hello, body.home .hero .tag { color: #fff7e0; text-shadow: 0 3px 0 #2a1650; }
-body.home .sky > .sun { background: #fff3c4; box-shadow: 0 0 0 14px rgba(255, 209, 102, 0.35), 0 0 60px 20px rgba(255, 209, 102, 0.35); }
-.lb-banner { margin: 8px auto 18px; max-width: 760px; border: 5px solid #1b0f33; border-radius: 22px; overflow: hidden; background: #000; box-shadow: 0 10px 0 #1b0f33; }
-.lb-banner img { display: block; width: 100%; max-height: 300px; object-fit: cover; object-position: center 35%; filter: contrast(1.05); }
-.lb-caption { margin: 0; padding: 8px 14px; background: #ffd166; color: #1b0f33; font-weight: 800; letter-spacing: 0.04em; text-align: center; font-size: 18px; }
-.foot, .foot summary { color: #fff7e0; }
+html { background: var(--bg); }
+body, body.home, body.game, .story-page {
+  font-family: var(--font) !important;
+  background: radial-gradient(1000px 600px at 90% -10%, color-mix(in srgb, var(--a2) 20%, transparent), transparent 60%),
+              radial-gradient(800px 600px at -10% 30%, color-mix(in srgb, var(--a1) 14%, transparent), transparent 60%),
+              linear-gradient(180deg, var(--bg2), var(--bg) 70%) fixed !important;
+}
+html[data-userbg] body { background: linear-gradient(rgba(0,0,0,var(--user-dim)), rgba(0,0,0,var(--user-dim))), var(--user-bg) center / cover fixed no-repeat, var(--bg) !important; }
+.fx-canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; }
+.sky, .parade, .cloud { display: none !important; }
+body > header, body > main, body > section, body > footer, body > div:not(.fx-canvas) { position: relative; z-index: 1; }
+body > header h1, .quest-top h1, .story-top h1, .quest-top .tag, .story-top .tag, body > h1, .game-name { color: var(--text) !important; text-shadow: none !important; font-family: 'Rajdhani', var(--font) !important; letter-spacing: .06em; }
+.home-link, a.back, .story-top .home-link {
+  display: inline-flex; align-items: center; min-height: 46px; padding: 0 16px !important; border-radius: 12px !important;
+  border: 1px solid color-mix(in srgb, var(--a1) 45%, transparent) !important; background: rgba(10,10,24,.72) !important;
+  color: var(--text) !important; box-shadow: none !important; text-decoration: none; font-weight: 700; letter-spacing: .06em;
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.quest-top, .story-top { color: var(--text); }
+button, .btn, .q-choice { box-shadow: none !important; }
+.q-card, .quest-card, .story-card, .card, .panel, .kc-panel { border-radius: 16px !important; box-shadow: 0 18px 50px rgba(0,0,0,.4) !important; border-color: rgba(255,255,255,.12) !important; }
+.q-choice { border-radius: 12px !important; }
+.sun:not(.sky > .sun), button.sun { background: linear-gradient(90deg, var(--a1), var(--a2)) !important; color: #05050a !important; border: 0 !important; }
+.starbar { color: var(--a1) !important; }
+.foot, .foot summary { color: var(--soft) !important; }
 /* Gentle feedback: no red. A miss fades softly. */
 .q-choice.right { background: #c9f2d0 !important; }
 .q-choice.wrong { background: #efe7ff !important; border-style: dashed !important; }
+/* LANTERNBLADE art banner kept for Story Studio */
+.lb-banner { margin: 8px auto 18px; max-width: 760px; border-radius: 16px; overflow: hidden; background: #000; }
+.lb-banner img { display: block; width: 100%; max-height: 300px; object-fit: cover; object-position: center 35%; }
+
+/* Kid switcher in the night style */
+body #kid-switch .ks-btn { min-height: 46px !important; border: 1px solid rgba(255,255,255,.18) !important; border-radius: 12px !important; background: rgba(10,10,24,.72) !important; color: var(--text) !important; box-shadow: none !important; }
+body #kid-switch .ks-menu { background: var(--bg2) !important; border: 1px solid rgba(255,255,255,.18) !important; border-radius: 14px !important; }
+body #kid-switch .ks-link { color: var(--text) !important; }
+body #kid-switch .ks-link[aria-current=page] { background: color-mix(in srgb, var(--a1) 22%, transparent) !important; }
+[hidden] { display: none !important; }

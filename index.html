@@ -2,72 +2,92 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="format-detection" content="telephone=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Aria's Web">
-  <meta name="theme-color" content="#7b3fd1">
+  <meta name="theme-color" content="#06060d">
   <title>Aria's Web</title>
   <link rel="icon" href="apple-touch-icon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="css/site.css">
-  <link rel="stylesheet" href="questions/ask.css">
-  <link rel="stylesheet" href="css/fit.css">
-  <script src="js/fit.js"></script>
-  <link rel="stylesheet" href="css/aria.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Exo+2:wght@600;800&family=Orbitron:wght@600;800&family=Rajdhani:wght@500;600;700&family=Shippori+Mincho:wght@600;800&display=swap">
+  <link rel="stylesheet" href="css/hub.css">
+  <script src="js/aria-core.js"></script>
 </head>
-<body class="home">
-  <div class="sky" aria-hidden="true">
-    <div class="sun"></div>
-    <div class="cloud cloud-a"></div>
-    <div class="cloud cloud-b"></div>
-    <div class="cloud cloud-c"></div>
-  </div>
-  <main class="wrap">
-    <header class="hero">
-      <p class="starbar" id="starbar" data-needs="stars">★</p>
-      <p class="hello" data-style="home.hello">Welcome back, Aria.</p>
-      <h1 data-site-title>Aria's Web</h1>
-      <p class="tag" data-style="home.tag">Choose where to spend your attention.</p>
-      <p class="star-ask" data-needs="stars" data-style="home.price">A new game costs 20 stars.</p>
-      <button type="button" class="star-game" id="new-game" data-needs="chat stars" data-style="home.newgame">Ask Mira to devise a new game</button>
-    </header>
-    <section class="lb-banner" aria-label="LANTERNBLADE">
-      <img src="assets/lanternblade/banner.jpg" alt="Mira from LANTERNBLADE, holding her lantern sword">
-      <p class="lb-caption">LANTERNBLADE · Chapter 1: The Blank Grimoire</p>
+<body class="hub">
+  <header class="topbar">
+    <div class="brand"><span class="logo" id="logo">Aria's Web</span><span class="sub" id="hubSub">Command Deck</span></div>
+    <div id="kid-switch-slot"></div>
+    <button type="button" class="icon-btn" id="openCustomize" aria-label="Customize my hub">⚙ <span>My Hub</span></button>
+  </header>
+
+  <main class="shell">
+    <section class="panel hero" aria-label="Player">
+      <button type="button" class="avatar-wrap" id="heroAvatar" aria-label="Edit avatar"></button>
+      <div>
+        <p class="hub-name" id="heroHub">Command Deck</p>
+        <h1 id="heroName">Player</h1>
+        <p class="ptitle" id="heroTitle"></p>
+        <div class="rank-row">
+          <span class="rank-chip" id="rankChip"></span>
+          <div class="xpbar"><div class="track"><div class="fill" id="xpFill"></div></div><div class="lbl"><span id="xpNow"></span><span id="xpNext"></span></div></div>
+          <span class="stat-chip">Training days <b id="days">0</b></span>
+          <span class="stat-chip" id="runWrap" hidden>Current run <b id="run">0</b></span>
+        </div>
+      </div>
     </section>
-    <section id="game-list" class="game-list" aria-label="Games"></section>
-    <ul class="parade" aria-hidden="true">
-      <li>🏮</li>
-      <li>📖</li>
-      <li>🦊</li>
-      <li>🦉</li>
-      <li>🐻</li>
-      <li>🐸</li>
-      <li>🦁</li>
-      <li>🐼</li>
-    </ul>
+
+    <section class="section" aria-labelledby="mHead">
+      <div class="sec-head"><h2 id="mHead">Math Dojo</h2><span class="kj">道場</span><span class="line"></span><span class="note">5 problems · about 10 min · every round unlocks a chapter</span></div>
+      <div class="grid missions" id="missions"></div>
+    </section>
+
+    <section class="section" aria-labelledby="sHead">
+      <div class="sec-head"><h2 id="sHead">Story Arc</h2><span class="kj">物語</span><span class="line"></span></div>
+      <div class="panel story-panel">
+        <div>
+          <h3 class="story-title" id="storyTitle">NULL MOON<span class="jp">零の月</span></h3>
+          <p class="season" id="storySeason"></p>
+          <p style="color:var(--soft);margin:12px 0 0">A girl who can see the seams of the world, and a city where anything imperfect gets erased. Finish a Math Dojo round to unlock the next chapter.</p>
+        </div>
+        <div class="chapters" id="chapters"></div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="tHead">
+      <div class="sec-head"><h2 id="tHead">Training Grounds</h2><span class="kj">修行</span><span class="line"></span></div>
+      <div class="grid training" id="training"></div>
+    </section>
+
+    <section class="section" aria-labelledby="cHead">
+      <div class="sec-head"><h2 id="cHead">My Creations</h2><span class="kj">創作</span><span class="line"></span><span class="note">your songs, stories, and visual novels</span></div>
+      <div class="grid shelf" id="shelf"></div>
+    </section>
+
+    <section class="section" aria-labelledby="bHead">
+      <div class="sec-head"><h2 id="bHead">Badges</h2><span class="kj">勲章</span><span class="line"></span><span class="note" id="badgeCount"></span></div>
+      <div class="grid badges" id="badges"></div>
+    </section>
   </main>
+
   <footer class="foot">
-    <p data-style="home.made">Built for Aria</p>
-    <details class="parent-note">
+    <details>
       <summary>For parents</summary>
-      <p>Brain Breaks are short learning pauses instead of ads. At the end of every level, whether <span data-child-name>Aria</span> finishes it or starts it over, she answers a few questions. Questions get a little harder as the game level goes up. Levels are saved on this iPad. Players can switch on the break screen.</p>
-      <p data-needs="chat">The 💬 bubble lets <span data-child-name>Aria</span> chat with <span data-bot-name>Mira</span>. It asks for the family code once on this iPad. Stars can be earned in Practice and spent on hints. A new game costs <span data-price="newGame">20</span> stars.</p>
-      <p>Treasure Map finds a level for the subjects that are turned on. Those levels are saved for Brain Breaks. She can quit and come back, or retake a subject anytime.</p>
-      <p data-needs="bookClub">Book Club is for a book she finished. She picks the book, then tells <span data-bot-name>Mira</span> about it in the chat. A long book can earn 20 stars. A short book does not.</p>
-      <p data-needs="homework">Homework is a photo of one worksheet. The check can take about a minute. It can award stars, up to <span data-price="sheet">10</span> for a sheet and <span data-price="day">20</span> homework stars a day. Hints never include the answer.</p>
+      <p>Everything Aria customizes (names, theme, avatar, background picture, creation links, XP, badges, and story progress) is saved only on this device's browser. Nothing is uploaded. Math Dojo rounds are 5 short problems, easiest first. Mistakes never cost XP; fixing a slip and asking a precise question with "Where am I stuck?" both earn XP. Practice and Treasure Map still cover English, Hebrew, Thai, Japanese, and Parsha. All voices are synthetic.</p>
     </details>
   </footer>
+
+  <div class="overlay" id="ov" hidden><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
+
   <script src="settings.js"></script>
-  <script src="games.js"></script>
-  <script src="js/home.js"></script>
-  <script src="stars/stars.js"></script>
-  <script src="chat/chat.js" defer></script>
+  <script src="story/chapters.js"></script>
+  <script src="js/aria-fx.js"></script>
+  <script src="js/hub.js"></script>
   <script src="js/kid-switch.js"></script>
-  <script src="js/style-level.js"></script>
 </body>
 </html>
