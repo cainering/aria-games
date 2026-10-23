@@ -460,10 +460,10 @@
   }
 
   var GAMES = {
-    carry: { title: "Carry Chain", kanji: "乗", reading: "jō · multiply", skill: "Multi-digit multiplication", blurb: "Estimate first, then multiply with visible carries or the box method.", make: carryProblem },
-    zeros: { title: "Zero Shift", kanji: "零", reading: "rei · zero", skill: "Place value with tens, hundreds, thousands", blurb: "Cover the zeros, solve the small fact, put the zeros back, and multiply back to check.", make: zerosProblem },
-    order: { title: "Order Protocol", kanji: "順", reading: "jun · order", skill: "Order of operations", blurb: "Tap which operation fires first. Watch for the traps.", make: orderProblem },
-    check: { title: "Reality Check", kanji: "検", reading: "ken · inspect", skill: "Estimate and check", blurb: "Round, estimate, and catch the slips in someone else's work.", make: checkProblem }
+    carry: { title: "the carrying room", kanji: "乗", reading: "jō · multiply", skill: "multi-digit multiplication", blurb: "Estimate first, then multiply with visible carries or the box method.", make: carryProblem },
+    zeros: { title: "the room of zeros", kanji: "零", reading: "rei · zero", skill: "place value with tens, hundreds, thousands", blurb: "Cover the zeros, solve the small fact, put the zeros back, and multiply back to check.", make: zerosProblem },
+    order: { title: "which door first", kanji: "順", reading: "jun · order", skill: "order of operations", blurb: "Tap which operation opens first. Some doors are traps.", make: orderProblem },
+    check: { title: "something feels off", kanji: "検", reading: "ken · inspect", skill: "estimate and check", blurb: "Round, estimate, and notice when someone else's answer doesn't fit.", make: checkProblem }
   };
 
   function makeRound(game, seed) {

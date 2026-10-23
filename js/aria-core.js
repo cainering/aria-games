@@ -5,70 +5,116 @@
   "use strict";
   var KEY = "aria-hub-v1", BGKEY = "aria-hub-bg";
 
+  var SCRIPT = (typeof document !== "undefined" && document.currentScript && document.currentScript.src) || "";
+  function asset(path) { try { return new URL("../" + path, SCRIPT || location.href).href; } catch (e) { return path; } }
+
+  /* Five themes from the dreamcore family. Each one also brings its own words (lex) so labels match the mood. */
+  var SERIF = "'Cormorant Garamond', 'Iowan Old Style', Georgia, serif", MONO = "'IBM Plex Mono', ui-monospace, Menlo, monospace",
+      ROUND = "'Quicksand', 'Nunito', system-ui, sans-serif", BODY = "'Nunito', -apple-system, 'Segoe UI', system-ui, sans-serif";
   var THEMES = [
-    { id: "cyber", name: "Midnight Cyberpunk", jp: "真夜中", fx: "rain", bg: "#06060d", bg2: "#120a24", panel: "rgba(16,14,34,.78)", line: "rgba(0,240,255,.28)", text: "#e9f7ff", soft: "#8fa6c4", a1: "#00f0ff", a2: "#ff2bd6", display: "'Orbitron', 'Rajdhani', system-ui, sans-serif" },
-    { id: "sakura", name: "Ink & Sakura", jp: "墨と桜", fx: "petals", bg: "#0d0a0e", bg2: "#1c1218", panel: "rgba(28,20,26,.80)", line: "rgba(255,138,178,.30)", text: "#f6eee4", soft: "#b9a6a8", a1: "#ff7aa8", a2: "#f3e6d0", display: "'Shippori Mincho', 'Hiragino Mincho ProN', serif" },
-    { id: "fantasy", name: "Dark Fantasy", jp: "闇の王国", fx: "embers", bg: "#0a0607", bg2: "#1d0c0e", panel: "rgba(26,12,14,.82)", line: "rgba(212,169,74,.30)", text: "#f3e9dc", soft: "#b49c8a", a1: "#e0233f", a2: "#d9b05a", display: "'Cinzel', 'Times New Roman', serif" },
-    { id: "starfield", name: "Starfield", jp: "星の海", fx: "stars", bg: "#040616", bg2: "#0c1236", panel: "rgba(12,16,44,.78)", line: "rgba(139,123,255,.32)", text: "#eef0ff", soft: "#9ea6d6", a1: "#9b8cff", a2: "#3ee6c8", display: "'Exo 2', 'Rajdhani', system-ui, sans-serif" },
-    { id: "storm", name: "Storm Ronin", jp: "嵐", fx: "rain", bg: "#090b0f", bg2: "#141a22", panel: "rgba(20,24,32,.80)", line: "rgba(255,212,0,.30)", text: "#f2f4f7", soft: "#9aa4b2", a1: "#ffd400", a2: "#5aa9ff", display: "'Rajdhani', system-ui, sans-serif", unlock: { rank: 1 } },
-    { id: "tide", name: "Abyssal Tide", jp: "深淵", fx: "stars", bg: "#02100f", bg2: "#06222a", panel: "rgba(6,28,32,.80)", line: "rgba(0,255,163,.28)", text: "#e6fff7", soft: "#8ab7ad", a1: "#00ffa3", a2: "#2b8cff", display: "'Exo 2', system-ui, sans-serif", unlock: { rank: 2 } },
-    { id: "ghost", name: "Ghost Signal", jp: "幽霊信号", fx: "rain", bg: "#070707", bg2: "#151515", panel: "rgba(22,22,22,.84)", line: "rgba(255,59,59,.35)", text: "#f5f5f5", soft: "#a3a3a3", a1: "#ff3b3b", a2: "#f5f5f5", display: "'Orbitron', system-ui, sans-serif", unlock: { badge: "phoenix" } },
-    { id: "eclipse", name: "Eclipse", jp: "日食", fx: "embers", bg: "#000000", bg2: "#140b00", panel: "rgba(20,12,2,.84)", line: "rgba(255,176,0,.34)", text: "#fff6e6", soft: "#c2a982", a1: "#ffb000", a2: "#ff4d00", display: "'Cinzel', serif", unlock: { rank: 4 } }
+    { id: "dreamcore", name: "dreamcore", jp: "夢の部屋", about: "faded floral wallpaper, a door that opens onto sky, something that blinks", fx: "dream", img: "dreamcore", dark: false,
+      bg: "#e9eef6", wash: "linear-gradient(180deg, rgba(232,242,253,.30), rgba(252,236,243,.46))", panel: "rgba(255,251,250,.52)", sheet: "#fbf7f6", line: "rgba(120,130,170,.28)",
+      text: "#3c4566", soft: "#7b83a3", a1: "#8bb8e8", a2: "#e7a3bd", a3: "#a9dcc6", onA: "#26304d", well: "rgba(255,255,255,.55)", display: SERIF, ui: MONO, italic: true,
+      lex: { hub: "the soft room", math: "the math rooms", mathJp: "部屋", room: "room", go: "enter", story: "the story", storyJp: "物語", other: "other rooms", otherJp: "廊下", made: "things i made", madeJp: "作品", keep: "keepsakes", keepJp: "宝物", done: "the room is quiet now", back: "back to the room",
+        phrases: ["you've been here before", "the door was always open", "it's okay to stay a while", "someone left the light on for you", "the water is still warm", "this hallway remembers your name"] } },
+    { id: "cloudcore", name: "cloudcore", jp: "雲の上", about: "bright, airy, always a summer afternoon above the clouds", fx: "sky", img: "sky", dark: false,
+      bg: "#dcebfb", wash: "linear-gradient(180deg, rgba(214,233,252,.20), rgba(255,255,255,.48))", panel: "rgba(255,255,255,.50)", sheet: "#f7fbff", line: "rgba(110,150,200,.30)",
+      text: "#35506f", soft: "#7891ad", a1: "#9ccaf3", a2: "#f6c9b4", a3: "#ffffff", onA: "#20384f", well: "rgba(255,255,255,.6)", display: ROUND, ui: MONO, italic: false,
+      lex: { hub: "above the clouds", math: "sky lessons", mathJp: "空", room: "cloud", go: "float up", story: "the story", storyJp: "物語", other: "elsewhere", otherJp: "遠く", made: "things i made", madeJp: "作品", keep: "collected things", keepJp: "宝物", done: "the sky cleared", back: "back up",
+        phrases: ["the sky remembers you", "nothing here is in a hurry", "it's always 4pm in summer", "you can see the whole town from here", "the clouds are moving slowly", "you're right on time"] } },
+    { id: "pool", name: "liminal pool", jp: "誰もいないプール", about: "tiled pool rooms, still water, fluorescent hum, nobody else here", fx: "pool", img: "pool", dark: false,
+      bg: "#dff3f1", wash: "linear-gradient(180deg, rgba(225,246,244,.28), rgba(240,250,250,.50))", panel: "rgba(248,255,255,.54)", sheet: "#f4fbfb", line: "rgba(80,150,150,.30)",
+      text: "#2f5458", soft: "#6e9599", a1: "#86d3cf", a2: "#b9e4f0", a3: "#f3f8f7", onA: "#173b3e", well: "rgba(255,255,255,.6)", display: MONO, ui: MONO, italic: false,
+      lex: { hub: "the pool room", math: "the lanes", mathJp: "水", room: "lane", go: "wade in", story: "the story", storyJp: "物語", other: "other rooms", otherJp: "部屋", made: "things i made", madeJp: "作品", keep: "lost & found", keepJp: "忘れ物", done: "the water settles", back: "back to the pool",
+        phrases: ["the lights hum softly", "nobody else is swimming", "the water is always 78°", "lane 4 is open", "your footsteps echo a little", "the pool never closes"] } },
+    { id: "night", name: "night dreamcore", jp: "夜の夢", about: "dusky violet, stars at the window, a quiet room after everyone's asleep", fx: "night", img: "night", dark: true,
+      bg: "#1d1830", wash: "linear-gradient(180deg, rgba(28,22,52,.34), rgba(22,18,40,.62))", panel: "rgba(40,32,70,.55)", sheet: "#231d3a", line: "rgba(200,185,255,.22)",
+      text: "#ece6ff", soft: "#a9a0cc", a1: "#c3b2ff", a2: "#f3c6dc", a3: "#ffe9a8", onA: "#1d1830", well: "rgba(10,8,24,.35)", display: SERIF, ui: MONO, italic: true,
+      lex: { hub: "the quiet room", math: "night lessons", mathJp: "夜", room: "window", go: "open", story: "the story", storyJp: "物語", other: "other rooms", otherJp: "部屋", made: "things i made", madeJp: "作品", keep: "keepsakes", keepJp: "宝物", done: "the house is asleep now", back: "back to the quiet room",
+        phrases: ["the house is quiet now", "the porch light is still on", "the stars are listening", "everyone else is asleep", "you can stay up a little longer", "the moon left the window open"] } },
+    { id: "weird", name: "weirdcore", jp: "へんな夢", about: "stranger and glitchier: too many doors, eyes, text that wants to tell you something", fx: "weird", img: "weird", dark: false,
+      bg: "#efe9cf", wash: "linear-gradient(180deg, rgba(244,238,208,.34), rgba(240,232,200,.56))", panel: "rgba(255,252,236,.66)", sheet: "#fbf8e9", line: "rgba(120,110,70,.32)",
+      text: "#3b3a2c", soft: "#7d7a60", a1: "#9fc3ea", a2: "#e6a19a", a3: "#f4e9a4", onA: "#2a2a1e", well: "rgba(255,255,255,.55)", display: "'Times New Roman', Times, serif", ui: "'VT323', " + MONO, italic: false, unlock: { rank: 1 },
+      lex: { hub: "ROOM ?", math: "the rooms (all of them)", mathJp: "扉", room: "door", go: "go in", story: "a story that keeps going", storyJp: "物語", other: "more doors", otherJp: "扉", made: "proof i was here", madeJp: "証拠", keep: "found objects", keepJp: "拾い物", done: "you finished. the wallpaper noticed.", back: "go back",
+        phrases: ["are you still there?", "this is not the first time", "you blinked. that's okay.", "the hallway is longer today", "everything is fine :)", "remember to come back"] } }
   ];
 
+  /* Rank names stay Japanese and quiet. */
   var RANKS = [
-    { xp: 0, name: "Initiate", jp: "見習い" },
-    { xp: 100, name: "Apprentice", jp: "弟子" },
-    { xp: 280, name: "Adept", jp: "熟練" },
-    { xp: 520, name: "Vanguard", jp: "先鋒" },
-    { xp: 850, name: "Sentinel", jp: "守護者" },
-    { xp: 1300, name: "Ace", jp: "エース" },
-    { xp: 2000, name: "Sage", jp: "賢者" },
-    { xp: 3000, name: "Master", jp: "達人" }
+    { xp: 0, name: "sleeper", jp: "眠り" },
+    { xp: 100, name: "dreamer", jp: "夢見" },
+    { xp: 280, name: "wanderer", jp: "旅人" },
+    { xp: 520, name: "lucid", jp: "明晰" },
+    { xp: 850, name: "door keeper", jp: "扉守" },
+    { xp: 1300, name: "cloud walker", jp: "雲歩き" },
+    { xp: 2000, name: "star reader", jp: "星読み" },
+    { xp: 3000, name: "awake", jp: "目覚め" }
   ];
 
+  /* Avatar symbols: drawn ones (sym) and real Japanese words (ch). */
   var GLYPHS = [
-    { id: "yoru", ch: "夜", mean: "night (yoru)" }, { id: "hoshi", ch: "星", mean: "star (hoshi)" }, { id: "yaiba", ch: "刃", mean: "blade (yaiba)" },
-    { id: "kage", ch: "影", mean: "shadow (kage)" }, { id: "tsuki", ch: "月", mean: "moon (tsuki)" }, { id: "yume", ch: "夢", mean: "dream (yume)" },
-    { id: "oto", ch: "音", mean: "sound, music (oto)" }, { id: "spark", ch: "✦", mean: "spark" },
-    { id: "honoo", ch: "炎", mean: "flame (honoo)", unlock: { rank: 1 } }, { id: "kaminari", ch: "雷", mean: "thunder (kaminari)", unlock: { rank: 2 } },
-    { id: "hikari", ch: "光", mean: "light (hikari)", unlock: { badge: "sharp" } }, { id: "tamashii", ch: "魂", mean: "soul (tamashii)", unlock: { rank: 3 } },
-    { id: "ryu", ch: "龍", mean: "dragon (ryū)", unlock: { rank: 4 } }, { id: "kaze", ch: "風", mean: "wind (kaze)", unlock: { badge: "days3" } },
-    { id: "ken", ch: "剣", mean: "sword (ken)", unlock: { badge: "four" } }, { id: "ou", ch: "王", mean: "ruler (ō)", unlock: { rank: 7 } }
+    { id: "eye", sym: 1, ch: "👁", mean: "eye" }, { id: "cloud", sym: 1, ch: "☁", mean: "cloud" }, { id: "door", sym: 1, ch: "🚪", mean: "door" },
+    { id: "star", sym: 1, ch: "✦", mean: "star" }, { id: "moon", sym: 1, ch: "☾", mean: "moon" }, { id: "duck", sym: 1, ch: "🦆", mean: "rubber duck" },
+    { id: "flower", sym: 1, ch: "✿", mean: "flower" },
+    { id: "yume", ch: "夢", mean: "dream (yume)" }, { id: "sora", ch: "空", mean: "sky (sora)" }, { id: "kumo", ch: "雲", mean: "cloud (kumo)" },
+    { id: "tsuki", ch: "月", mean: "moon (tsuki)" }, { id: "hoshi", ch: "星", mean: "star (hoshi)" }, { id: "oto", ch: "音", mean: "sound, music (oto)" }, { id: "yoru", ch: "夜", mean: "night (yoru)" },
+    { id: "key", sym: 1, ch: "⚿", mean: "key", unlock: { badge: "four" } },
+    { id: "tobira", ch: "扉", mean: "door (tobira)", unlock: { rank: 1 } }, { id: "hikari", ch: "光", mean: "light (hikari)", unlock: { badge: "sharp" } },
+    { id: "kaze", ch: "風", mean: "wind (kaze)", unlock: { badge: "days3" } }, { id: "nemuri", ch: "眠", mean: "sleep (nemuri)", unlock: { rank: 3 } },
+    { id: "mezame", ch: "覚", mean: "waking up (mezameru)", unlock: { rank: 7 } }
   ];
   var FRAMES = [
-    { id: "hex", name: "Hex" }, { id: "circle", name: "Ring" }, { id: "diamond", name: "Diamond" },
-    { id: "shield", name: "Shield", unlock: { badge: "first" } }, { id: "star", name: "Star Seal", unlock: { rank: 3 } }, { id: "crest", name: "Master Crest", unlock: { rank: 7 } }
+    { id: "circle", name: "bubble" }, { id: "arch", name: "arch" }, { id: "tile", name: "tile" },
+    { id: "window", name: "window", unlock: { badge: "first" } }, { id: "cloudf", name: "cloud", unlock: { rank: 2 } }, { id: "tv", name: "old tv", unlock: { rank: 4 } }
   ];
   var AURAS = [
-    { id: "none", name: "None" }, { id: "glow", name: "Glow" },
-    { id: "pulse", name: "Pulse", unlock: { rank: 1 } }, { id: "orbit", name: "Orbit", unlock: { badge: "four" } }, { id: "flare", name: "Flare", unlock: { badge: "days7" } }
+    { id: "none", name: "none" }, { id: "glow", name: "haze" },
+    { id: "pulse", name: "breathe", unlock: { rank: 1 } }, { id: "orbit", name: "drift", unlock: { badge: "four" } }, { id: "flare", name: "halo", unlock: { badge: "days7" } }
   ];
-  var COLORS = ["#00f0ff", "#ff2bd6", "#ff7aa8", "#e0233f", "#d9b05a", "#9b8cff", "#3ee6c8", "#ffd400", "#00ffa3", "#f5f5f5"];
+  var COLORS = ["#cfe6fb", "#8bb8e8", "#f6d3df", "#e7a3bd", "#cdeedd", "#a9dcc6", "#e3dbff", "#c3b2ff", "#fff1c1", "#ffffff", "#5b6f9c", "#8a5f7a", "#4f7a6e", "#3c4566"];
 
   var BADGES = [
-    { id: "first", name: "First Mission", icon: "壱", about: "Finish any math round." },
-    { id: "carry", name: "Chain Breaker", icon: "乗", about: "Clear a Carry Chain round." },
-    { id: "zeros", name: "Zero Walker", icon: "零", about: "Clear a Zero Shift round." },
-    { id: "order", name: "Protocol Keeper", icon: "順", about: "Clear an Order Protocol round." },
-    { id: "check", name: "Truth Seeker", icon: "検", about: "Clear a Reality Check round." },
-    { id: "four", name: "Four Disciplines", icon: "四", about: "Clear all four math games." },
-    { id: "sharp", name: "Sharp Question", icon: "問", about: "Use \"Where am I stuck?\" 5 times. Precise questions are a power." },
-    { id: "phoenix", name: "Phoenix", icon: "鳳", about: "Fix 10 slips. Every master makes them." },
-    { id: "oracle", name: "Oracle's Eye", icon: "眼", about: "Make 10 good estimates." },
-    { id: "veteran", name: "Veteran", icon: "十", about: "Finish 10 rounds." },
-    { id: "days3", name: "Three Nights", icon: "三", about: "Train on 3 different days." },
-    { id: "days7", name: "Seven Moons", icon: "七", about: "Train on 7 different days." },
-    { id: "story5", name: "Deep in the Story", icon: "章", about: "Unlock 5 story chapters." },
-    { id: "story10", name: "Season Finale", icon: "終", about: "Unlock the whole first season." },
-    { id: "creator", name: "Creator", icon: "創", about: "Add your first creation to your shelf." },
-    { id: "master", name: "Master", icon: "達", about: "Reach Master rank." }
+    { id: "first", name: "first door", icon: "壱", about: "Finish any math round." },
+    { id: "carry", name: "carried", icon: "乗", about: "Finish a round in the carrying room." },
+    { id: "zeros", name: "nothing, counted", icon: "零", about: "Finish a round in the room of zeros." },
+    { id: "order", name: "the right door", icon: "順", about: "Finish a round of which door first." },
+    { id: "check", name: "it felt off", icon: "検", about: "Finish a round of something feels off." },
+    { id: "four", name: "every room", icon: "四", about: "Finish a round in all four rooms." },
+    { id: "sharp", name: "a clear question", icon: "問", about: "Use \"Where am I stuck?\" 5 times. Precise questions are a power." },
+    { id: "phoenix", name: "mended", icon: "繕", about: "Fix 10 slips. Everyone makes them." },
+    { id: "oracle", name: "the knowing eye", icon: "眼", about: "Make 10 good estimates." },
+    { id: "veteran", name: "ten visits", icon: "十", about: "Finish 10 rounds." },
+    { id: "days3", name: "three nights", icon: "三", about: "Visit on 3 different days." },
+    { id: "days7", name: "seven moons", icon: "七", about: "Visit on 7 different days." },
+    { id: "story5", name: "deep in the story", icon: "章", about: "Unlock 5 story chapters." },
+    { id: "story10", name: "end of season one", icon: "終", about: "Unlock the whole first season." },
+    { id: "creator", name: "maker", icon: "創", about: "Add your first creation to your shelf." },
+    { id: "master", name: "awake", icon: "覚", about: "Reach the last rank." }
   ];
+
+  /* Old (v1) names and ids that should quietly move to the new look. */
+  var OLD_NAMES = ["Nightglass Station", "Neon Shrine", "Moonblade Archive", "Signal//Aria", "The Ink Tower", "Starfall Terminal", "Command Deck", "Hideout", "Sanctum", "Dojo", "Control Room", "Observatory",
+    "The Silent Blade", "Starfall Composer", "Seam Walker", "Night Shift Strategist"];
+  var OLD_COLORS = ["#00f0ff", "#ff2bd6", "#ff7aa8", "#e0233f", "#d9b05a", "#9b8cff", "#3ee6c8", "#ffd400", "#00ffa3", "#f5f5f5"];
+  function find(list, id) { return list.filter(function (x) { return x.id === id; })[0]; }
+  function migrate(s) {
+    if (!find(THEMES, s.theme)) { s.theme = "dreamcore"; s.accent = ""; }
+    if (s.accent && OLD_COLORS.indexOf(s.accent.toLowerCase()) >= 0) s.accent = "";
+    ["siteName", "hubName", "title"].forEach(function (k) { if (OLD_NAMES.indexOf(s[k]) >= 0) s[k] = ""; });
+    var a = s.avatar || (s.avatar = {});
+    if (!find(GLYPHS, a.glyph)) a.glyph = "eye";
+    if (!find(FRAMES, a.frame)) a.frame = a.frame === "hex" || a.frame === "diamond" ? "arch" : "circle";
+    if (!find(AURAS, a.aura)) a.aura = "glow";
+    if (!a.c1 || OLD_COLORS.indexOf(String(a.c1).toLowerCase()) >= 0) a.c1 = "#cfe6fb";
+    if (!a.c2 || OLD_COLORS.indexOf(String(a.c2).toLowerCase()) >= 0) a.c2 = "#5b6f9c";
+    s.v = 2;
+    return s;
+  }
 
   function defaults() {
     return {
-      v: 1, setup: false, siteName: "", hubName: "", player: "", title: "", theme: "cyber", accent: "",
-      avatar: { frame: "hex", glyph: "yoru", c1: "#00f0ff", c2: "#ff2bd6", aura: "glow" },
+      v: 2, setup: false, siteName: "", hubName: "", player: "", title: "", theme: "dreamcore", accent: "",
+      avatar: { frame: "arch", glyph: "eye", c1: "#cfe6fb", c2: "#5b6f9c", aura: "glow" },
       bgDim: 0.55, creations: [], xp: 0, rounds: {}, roundsTotal: 0, chapters: 1, readChapters: {},
       badges: {}, stats: { asked: 0, fixed: 0, estimates: 0 }, days: []
     };
@@ -84,6 +130,7 @@
   function load() {
     var s = defaults();
     try { var raw = root.localStorage && localStorage.getItem(KEY); if (raw) s = merge(s, JSON.parse(raw)); } catch (e) {}
+    migrate(s);
     state = s; return s;
   }
   function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
@@ -104,9 +151,9 @@
   }
   function unlockText(item) {
     if (!item.unlock) return "";
-    if (item.unlock.rank != null) return "Reach " + RANKS[item.unlock.rank].name;
+    if (item.unlock.rank != null) return "reach " + RANKS[item.unlock.rank].jp + " · " + RANKS[item.unlock.rank].name;
     var b = BADGES.filter(function (x) { return x.id === item.unlock.badge; })[0];
-    return "Earn the " + (b ? b.name : "") + " badge";
+    return "find the keepsake \u201c" + (b ? b.name : "") + "\u201d";
   }
   function theme(id) { return THEMES.filter(function (t) { return t.id === id; })[0] || THEMES[0]; }
 
@@ -114,22 +161,26 @@
     var s = get(), t = theme(s.theme), de = document.documentElement;
     if (!isUnlocked(t, s)) t = THEMES[0];
     var a1 = s.accent || t.a1;
-    var vars = { "--bg": t.bg, "--bg2": t.bg2, "--panel": t.panel, "--line": t.line, "--text": t.text, "--soft": t.soft, "--a1": a1, "--a2": t.a2, "--display": t.display };
+    var vars = { "--bg": t.bg, "--wash": t.wash, "--panel": t.panel, "--sheet": t.sheet, "--line": t.line, "--text": t.text, "--soft": t.soft, "--a1": a1, "--a2": t.a2, "--a3": t.a3, "--on-a": t.onA, "--well": t.well,
+      "--display": t.display, "--ui": t.ui, "--body": BODY, "--scene": "url(" + asset("assets/dream/" + t.img + ".jpg") + ")", "--display-style": t.italic ? "italic" : "normal" };
     Object.keys(vars).forEach(function (k) { de.style.setProperty(k, vars[k]); });
     de.setAttribute("data-theme", t.id);
     de.setAttribute("data-fx", t.fx);
+    de.setAttribute("data-mode", t.dark ? "dark" : "light");
     var bg = null; try { bg = localStorage.getItem(BGKEY); } catch (e) {}
-    if (bg) { de.style.setProperty("--user-bg", "url(" + bg + ")"); de.style.setProperty("--user-dim", String(s.bgDim == null ? 0.55 : s.bgDim)); de.setAttribute("data-userbg", "1"); }
+    if (bg) { de.style.setProperty("--user-bg", "url(" + bg + ")"); de.style.setProperty("--user-dim", String(s.bgDim == null ? 0.35 : s.bgDim)); de.setAttribute("data-userbg", "1"); }
     else { de.style.removeProperty("--user-bg"); de.removeAttribute("data-userbg"); }
     var meta = document.querySelector('meta[name="theme-color"]'); if (meta) meta.setAttribute("content", t.bg);
     fillNames();
   }
-  function siteName() { var s = get(); return s.siteName || "Aria's Web"; }
+  function lex() { var s = get(), t = theme(s.theme); if (!isUnlocked(t, s)) t = THEMES[0]; return t.lex; }
+  function phrase(seed) { var p = lex().phrases; return p[(seed == null ? Math.floor(Math.random() * p.length) : seed) % p.length]; }
+  function siteName() { var s = get(); return s.siteName || "aria's room"; }
   function fillNames() {
     if (!document.body) return;
     var name = siteName();
     var links = document.querySelectorAll("[data-site-link], a.home-link, a.back");
-    for (var i = 0; i < links.length; i++) links[i].textContent = "\u2190 " + name;
+    for (var i = 0; i < links.length; i++) links[i].textContent = "\u2190 " + name.toLowerCase();
     if (!document.body.classList.contains("hub")) {
       var page = document.body.getAttribute("data-page");
       if (page) document.title = page + " · " + name;
@@ -142,29 +193,53 @@
   function esc(t) { return String(t == null ? "" : t).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
 
   var FRAME_PATH = {
-    hex: "M50 4 L90 27 L90 73 L50 96 L10 73 L10 27 Z",
     circle: "M50 6 A44 44 0 1 1 49.9 6 Z",
-    diamond: "M50 3 L95 50 L50 97 L5 50 Z",
-    shield: "M50 4 L88 16 L86 56 C84 76 68 89 50 97 C32 89 16 76 14 56 L12 16 Z",
-    star: "M50 3 L61 20 L81 14 L80 35 L97 46 L83 61 L89 81 L68 82 L58 97 L50 84 L42 97 L32 82 L11 81 L17 61 L3 46 L20 35 L19 14 L39 20 Z",
-    crest: "M50 2 L66 14 L92 12 L88 40 L98 62 L74 72 L62 96 L50 84 L38 96 L26 72 L2 62 L12 40 L8 12 L34 14 Z"
+    arch: "M16 96 L16 44 A34 34 0 0 1 84 44 L84 96 Z",
+    tile: "M16 8 H84 Q92 8 92 16 V84 Q92 92 84 92 H16 Q8 92 8 84 V16 Q8 8 16 8 Z",
+    window: "M14 96 L14 42 A36 36 0 0 1 86 42 L86 96 Z",
+    cloudf: "M24 86 C8 86 4 66 16 58 C8 42 24 26 40 32 C46 14 74 14 80 34 C96 34 100 56 90 64 C98 78 86 90 74 86 Z",
+    tv: "M12 30 Q12 24 18 24 H82 Q88 24 88 30 V84 Q88 90 82 90 H18 Q12 90 12 84 Z"
   };
+  /* Simple drawn symbols, sized for a 100x100 box. ink = main color, paper = light fill. */
+  function symbolSVG(id, ink, paper) {
+    var st = ' fill="none" stroke="' + ink + '" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"';
+    switch (id) {
+      case "eye": return '<g class="sym-eye"><path d="M20 52 Q50 24 80 52 Q50 80 20 52 Z" fill="' + paper + '"' + st.replace(' fill="none"', "") + '/><g class="iris"><circle cx="50" cy="52" r="12" fill="' + ink + '" opacity=".9"/><circle cx="50" cy="52" r="5" fill="' + paper + '" opacity=".35"/><circle cx="54.5" cy="47.5" r="2.6" fill="#fff"/></g>' +
+        '<path d="M30 38 L27 32 M40 33 L39 26 M50 31 V24 M60 33 L61 26 M70 38 L73 32"' + st + ' stroke-width="2.4"/></g>';
+      case "cloud": return '<path d="M30 68 C18 68 16 54 26 50 C24 38 38 32 46 38 C50 28 66 28 70 40 C82 40 86 54 78 60 C82 66 76 70 70 68 Z" fill="' + paper + '"' + st.replace(' fill="none"', "") + '/>';
+      case "door": return '<path d="M34 78 V36 A16 16 0 0 1 66 36 V78 Z" fill="#cfe6fb" stroke="' + ink + '" stroke-width="3.2" stroke-linejoin="round"/><path d="M40 60 C36 60 36 54 40 53 C40 49 46 47 48 51 C52 49 56 52 54 56 C57 57 56 60 53 60 Z" fill="#fff"/><path d="M34 78 V36 A16 16 0 0 1 50 20" fill="none" stroke="' + ink + '" stroke-width="1.6" opacity=".4"/><circle cx="60" cy="58" r="2.4" fill="' + ink + '"/><path d="M26 78 H74"' + st + '/>';
+      case "star": return '<path d="M50 20 C53 42 58 47 80 50 C58 53 53 58 50 80 C47 58 42 53 20 50 C42 47 47 42 50 20 Z" fill="' + paper + '"' + st.replace(' fill="none"', "") + '/><circle cx="74" cy="28" r="3" fill="' + ink + '" opacity=".6"/><circle cx="28" cy="74" r="2" fill="' + ink + '" opacity=".5"/>';
+      case "moon": return '<path d="M60 22 A30 30 0 1 0 74 72 A24 24 0 1 1 60 22 Z" fill="' + paper + '"' + st.replace(' fill="none"', "") + '/><circle cx="72" cy="34" r="2.2" fill="' + ink + '" opacity=".6"/>';
+      case "duck": return '<path d="M26 60 C26 50 34 48 42 52 C40 40 46 30 57 30 C68 30 72 42 66 50 C76 50 80 56 76 64 C72 76 56 78 44 76 C32 75 26 70 26 60 Z" fill="#ffe27a" stroke="' + ink + '" stroke-width="3" stroke-linejoin="round"/><path d="M68 38 L80 41 L68 45 Z" fill="#f7a35c" stroke="' + ink + '" stroke-width="2" stroke-linejoin="round"/><circle cx="60" cy="38" r="2.6" fill="' + ink + '"/><path d="M40 62 C46 66 54 66 60 62"' + st + ' stroke-width="2.2"/>';
+      case "flower": return '<g fill="' + paper + '" stroke="' + ink + '" stroke-width="2.8">' + [0, 72, 144, 216, 288].map(function (r) { return '<ellipse cx="50" cy="33" rx="10" ry="15" transform="rotate(' + r + ' 50 51)"/>'; }).join("") + '</g><circle cx="50" cy="51" r="8" fill="' + ink + '"/>';
+      case "key": return '<circle cx="36" cy="50" r="12"' + st + '/><circle cx="36" cy="50" r="4" fill="' + ink + '" opacity=".5"/><path d="M48 50 H80 M70 50 V60 M78 50 V58"' + st + '/>';
+    }
+    return "";
+  }
   var uid = 0;
   function avatarSVG(av, opts) {
     av = av || get().avatar; opts = opts || {};
-    var g = GLYPHS.filter(function (x) { return x.id === av.glyph; })[0] || GLYPHS[0];
-    var path = FRAME_PATH[av.frame] || FRAME_PATH.hex, id = "av" + (++uid), c1 = av.c1 || "#00f0ff", c2 = av.c2 || "#ff2bd6";
+    var g = find(GLYPHS, av.glyph) || GLYPHS[0];
+    var path = FRAME_PATH[av.frame] || FRAME_PATH.circle, id = "av" + (++uid), c1 = av.c1 || "#cfe6fb", c2 = av.c2 || "#5b6f9c";
     var aura = av.aura || "none";
-    var s = '<svg class="avatar-svg aura-' + aura + '" viewBox="-10 -10 120 120" role="img" aria-label="Avatar ' + esc(g.mean) + '">' +
-      '<defs><linearGradient id="' + id + 'g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="' + c1 + '"/><stop offset="1" stop-color="' + c2 + '"/></linearGradient>' +
-      '<radialGradient id="' + id + 'r" cx=".5" cy=".38" r=".7"><stop offset="0" stop-color="' + c1 + '" stop-opacity=".35"/><stop offset="1" stop-color="#000" stop-opacity=".9"/></radialGradient>' +
-      '<filter id="' + id + 'f" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>';
-    if (aura === "orbit") s += '<g class="orbit"><circle cx="50" cy="50" r="56" fill="none" stroke="' + c2 + '" stroke-width="1" stroke-dasharray="2 9" opacity=".8"/><circle cx="106" cy="50" r="3" fill="' + c1 + '"/><circle cx="-6" cy="50" r="2" fill="' + c2 + '"/></g>';
-    if (aura === "flare") s += '<g class="flare" opacity=".75">' + [0, 45, 90, 135].map(function (r) { return '<rect x="48.5" y="-8" width="3" height="116" rx="1.5" fill="url(#' + id + 'g)" transform="rotate(' + r + ' 50 50)"/>'; }).join("") + '</g>';
-    s += '<path d="' + path + '" fill="url(#' + id + 'r)" stroke="url(#' + id + 'g)" stroke-width="3.5"' + (aura !== "none" ? ' filter="url(#' + id + 'f)"' : "") + '/>';
-    s += '<path d="' + path + '" fill="none" stroke="' + c1 + '" stroke-opacity=".35" stroke-width="1" transform="translate(50 50) scale(.86) translate(-50 -50)"/>';
-    s += '<text x="50" y="52" text-anchor="middle" dominant-baseline="central" font-size="' + (g.ch.length > 1 || /[✦]/.test(g.ch) ? 44 : 48) + '" font-family="\'Shippori Mincho\', \'Hiragino Mincho ProN\', \'Noto Serif JP\', serif" font-weight="800" fill="url(#' + id + 'g)"' + (aura !== "none" ? ' filter="url(#' + id + 'f)"' : "") + '>' + esc(g.ch) + '</text>';
-    s += "</svg>";
+    var s = '<svg class="avatar-svg aura-' + aura + '" viewBox="-12 -12 124 124" role="img" aria-label="Avatar: ' + esc(g.mean) + '">' +
+      '<defs><radialGradient id="' + id + 'r" cx=".42" cy=".32" r=".8"><stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="' + c1 + '"/><stop offset="1" stop-color="' + c1 + '" stop-opacity=".85"/></radialGradient>' +
+      '<filter id="' + id + 'f" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="5"/></filter>' +
+      '<clipPath id="' + id + 'c"><path d="' + path + '"/></clipPath></defs>';
+    if (aura !== "none") s += '<path class="haze" d="' + path + '" fill="' + c1 + '" opacity=".9" filter="url(#' + id + 'f)" transform="translate(50 50) scale(1.08) translate(-50 -50)"/>';
+    if (aura === "orbit") s += '<g class="orbit">' + [0, 120, 240].map(function (r, i) { return '<circle cx="50" cy="-4" r="' + (4 - i) + '" fill="#fff" stroke="' + c2 + '" stroke-width="1" opacity=".9" transform="rotate(' + r + ' 50 50)"/>'; }).join("") + '</g>';
+    if (aura === "flare") s += '<ellipse class="halo" cx="50" cy="-2" rx="26" ry="6" fill="none" stroke="' + c2 + '" stroke-width="2" opacity=".55"/>';
+    if (av.frame === "tv") s += '<path d="M36 22 L26 6 M64 22 L74 6" stroke="' + c2 + '" stroke-width="2.4" stroke-linecap="round"/>';
+    s += '<path d="' + path + '" fill="url(#' + id + 'r)" stroke="' + c2 + '" stroke-width="2.6" stroke-linejoin="round"/>';
+    s += '<g clip-path="url(#' + id + 'c)"><rect x="-10" y="-10" width="120" height="120" fill="url(#' + id + 'r)" opacity="0"/>';
+    if (av.frame === "window") s += '<path d="M50 6 V96 M14 58 H86" stroke="' + c2 + '" stroke-width="1.6" opacity=".35"/>';
+    if (av.frame === "tv") s += '<path d="M12 40 H88 M12 56 H88 M12 72 H88" stroke="' + c2 + '" stroke-width=".8" opacity=".18"/>';
+    s += '</g>';
+    var cy = av.frame === "arch" || av.frame === "window" ? 4 : av.frame === "tv" ? 6 : 0;
+    s += '<g transform="translate(0 ' + cy + ')">';
+    if (g.sym) s += '<g transform="translate(50 52) scale(.82) translate(-50 -52)">' + symbolSVG(g.id, c2, "#ffffff") + "</g>";
+    else s += '<text x="50" y="53" text-anchor="middle" dominant-baseline="central" font-size="46" font-family="\'Shippori Mincho\', \'Hiragino Mincho ProN\', \'Noto Serif JP\', serif" font-weight="600" fill="' + c2 + '">' + esc(g.ch) + "</text>";
+    s += "</g></svg>";
     return s;
   }
 
@@ -207,10 +282,10 @@
   }
   function describeNew(before, after) {
     var names = [];
-    THEMES.forEach(function (x) { if (after[x.id] && !before[x.id]) names.push("Theme: " + x.name); });
-    GLYPHS.forEach(function (x) { if (after[x.id] && !before[x.id]) names.push("Avatar glyph: " + x.ch + " " + x.mean); });
-    FRAMES.forEach(function (x) { if (after[x.id] && !before[x.id]) names.push("Avatar frame: " + x.name); });
-    AURAS.forEach(function (x) { if (after[x.id] && !before[x.id]) names.push("Avatar aura: " + x.name); });
+    THEMES.forEach(function (x) { if (after[x.id] && !before[x.id]) names.push("theme: " + x.name); });
+    GLYPHS.forEach(function (x) { if (after[x.id] && !before[x.id]) names.push("avatar symbol: " + x.mean); });
+    FRAMES.forEach(function (x) { if (after[x.id] && !before[x.id]) names.push("avatar frame: " + x.name); });
+    AURAS.forEach(function (x) { if (after[x.id] && !before[x.id]) names.push("avatar aura: " + x.name); });
     return names;
   }
 
@@ -246,6 +321,6 @@
     THEMES: THEMES, RANKS: RANKS, GLYPHS: GLYPHS, FRAMES: FRAMES, AURAS: AURAS, COLORS: COLORS, BADGES: BADGES,
     get: get, set: set, save: save, load: load, apply: apply, theme: theme, rankInfo: rankInfo, rankIndex: rankIndex,
     isUnlocked: isUnlocked, unlockText: unlockText, avatarSVG: avatarSVG, setBackground: setBackground, hasBackground: hasBackground,
-    finishRound: finishRound, addXp: addXp, checkBadges: checkBadges, markDay: markDay, runLength: runLength, siteName: siteName, esc: esc, reset: reset, today: today
+    finishRound: finishRound, addXp: addXp, checkBadges: checkBadges, markDay: markDay, runLength: runLength, siteName: siteName, esc: esc, reset: reset, today: today, lex: lex, phrase: phrase, asset: asset, symbolSVG: symbolSVG, migrate: migrate
   };
 })(window);

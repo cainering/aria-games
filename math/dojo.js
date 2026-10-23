@@ -1,4 +1,4 @@
-/* Math Dojo screens: intro, 5-problem round, stuck helper, results. */
+/* Math room screens: intro, 5-problem round, stuck helper, results. */
 (function () {
   "use strict";
   var H = window.AriaHub, M = window.MathDojo, esc = H.esc, fmt = M.fmt;
@@ -9,8 +9,8 @@
   $("gTitle").textContent = G.title; $("gSkill").textContent = G.skill;
   document.title = G.title + " · " + H.siteName();
 
-  var GOOD = ["Clean.", "Locked in.", "Exactly.", "Sharp.", "That's it.", "Nice and steady."];
-  var FIXED = ["Fixed it. Finding your own slip is the real skill.", "Recovered. That's what masters do.", "There it is. Slip found, slip fixed."];
+  var GOOD = ["Yes.", "Exactly.", "That's it.", "Nice and steady.", "Right where it should be.", "Quietly correct."];
+  var FIXED = ["Fixed it. Finding your own slip is the real skill.", "Found it and fixed it. That's the whole trick.", "There it is. Slip found, slip fixed."];
   var MISS = ["Not yet, and that's normal. ", "Close. Slips happen to everyone. ", "That's a fixable slip. ", "Good try. Let's look closer. "];
   function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
 
@@ -21,11 +21,11 @@
   }
   function prog() {
     var h = ""; for (var i = 0; i < 5; i++) h += '<i class="' + (R && i < R.pi ? "done" : R && i === R.pi ? "cur" : "") + '"></i>';
-    $("prog").innerHTML = h; $("xpLive").textContent = "+" + (R ? R.xp : 0) + " XP";
+    $("prog").innerHTML = h; $("xpLive").textContent = "+" + (R ? R.xp : 0) + " xp";
   }
   function gain(n, el) {
     R.xp += n; prog();
-    if (el && n > 0) { var r = el.getBoundingClientRect(), b = document.createElement("div"); b.className = "burst"; b.textContent = "+" + n + " XP"; b.style.left = (r.left + r.width / 2 - 30) + "px"; b.style.top = (r.top - 10) + "px"; document.body.appendChild(b); setTimeout(function () { b.remove(); }, 1000); }
+    if (el && n > 0) { var r = el.getBoundingClientRect(), b = document.createElement("div"); b.className = "burst"; b.textContent = "+" + n + " xp"; b.style.left = (r.left + r.width / 2 - 30) + "px"; b.style.top = (r.top - 10) + "px"; document.body.appendChild(b); setTimeout(function () { b.remove(); }, 1000); }
   }
 
   /* ---------- intro ---------- */
@@ -37,8 +37,8 @@
   };
   function intro() {
     R = null; prog();
-    app.innerHTML = '<section class="panel intro"><div><div class="kj" aria-hidden="true">' + G.kanji + '</div><div class="reading">' + esc(G.reading) + '</div></div><div><h1>' + esc(G.title) + '</h1><p class="sk">' + esc(G.skill) + "</p><p>" + esc(G.blurb) + "</p><ul>" + TIPS[game].map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") +
-      '</ul><div class="calm">5 problems, easiest first, about 10 minutes. Slips never cost XP. Fixing one earns XP, and so does asking a precise question with <b>Where am I stuck?</b></div><div class="row"><button type="button" class="btn primary" id="go">Start round</button><a class="btn ghost" href="../index.html">Back to hub</a></div></div></section>';
+    app.innerHTML = '<section class="panel intro"><div><div class="door-scene" aria-hidden="true"><div class="kj">' + G.kanji + '</div></div><div class="reading">' + esc(G.reading) + '</div></div><div><h1>' + esc(G.title) + '</h1><p class="sk">' + esc(G.skill) + "</p><p>" + esc(G.blurb) + "</p><ul>" + TIPS[game].map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") +
+      '</ul><div class="calm">5 problems, easiest first, about 10 minutes. Slips never cost xp. Fixing one earns xp, and so does asking a precise question with <b>where am i stuck?</b></div><p class="whisper" style="margin:0 0 16px">' + esc(H.phrase()) + '</p><div class="row"><button type="button" class="btn primary" id="go">' + esc(H.lex().go) + '</button><a class="btn ghost" href="../index.html">' + esc(H.lex().back) + '</a></div></div></section>';
     $("go").onclick = newRound;
   }
 
@@ -167,9 +167,9 @@
     if (s.type === "choice") h += '<div class="choices">' + s.options.map(function (o, i) { return '<button type="button" data-c="' + i + '">' + esc(o.label) + "</button>"; }).join("") + "</div>";
     if (needsPad(s)) h += '<div class="entry" id="entry" aria-live="polite"><span id="ev">' + (st.value ? fmt(Number(st.value)) : "") + '</span><span class="cursor"></span></div><div class="pad" id="pad">' + [1, 2, 3, 4, 5, 6, 7, 8, 9].map(function (n) { return '<button type="button" data-k="' + n + '">' + n + "</button>"; }).join("") + '<button type="button" data-k="del" aria-label="Delete">⌫</button><button type="button" data-k="0">0</button><button type="button" data-k="ok" class="ok">Check</button></div>';
     if (s.type === "zeros") h += '<div class="row"><button type="button" class="btn primary" id="zDone">Done covering</button><button type="button" class="btn ghost" id="zReset">Reset</button></div>';
-    h += '<div class="fb" id="fb" role="status"></div><div class="tools"><button type="button" class="btn ghost stuck-btn" id="stuckBtn">Where am I stuck?</button>';
-    if (s.row !== undefined) h += '<button type="button" class="btn ghost" id="carryBtn">Show carries</button>';
-    h += '<button type="button" class="btn ghost" id="revealBtn" hidden>Show me this step</button></div>';
+    h += '<div class="fb" id="fb" role="status"></div><div class="tools"><button type="button" class="btn ghost stuck-btn" id="stuckBtn">where am i stuck?</button>';
+    if (s.row !== undefined) h += '<button type="button" class="btn ghost" id="carryBtn">show carries</button>';
+    h += '<button type="button" class="btn ghost" id="revealBtn" hidden>show me this step</button></div>';
     return h;
   }
   function needsPad(s) { return s.type === "number" || (s.type === "order" && st.phase === "calc"); }
@@ -357,7 +357,7 @@
       var s = cur(), k = b.dataset.k, said = b.querySelector("b").textContent, hint = hintFor(s, k);
       if (!st.asked[k]) { st.asked[k] = 1; R.asked++; gain(2, $("stuckBtn")); }
       if (s.row !== undefined && k === "here") { P._carriesShown[s.row] = true; redrawBoard(); }
-      fb("hint", '<span class="said">' + esc(said) + "</span>" + esc(hint) + '<br><small style="color:var(--soft)">Asking exactly where you\'re stuck: +2 XP.</small>');
+      fb("hint", '<span class="said">' + esc(said) + "</span>" + esc(hint) + '<br><small style="color:var(--soft)">Asking exactly where you\'re stuck: +2 xp.</small>');
     };
   });
   function hintFor(s, k) {
@@ -379,7 +379,7 @@
     prog();
     var more = R.pi < 5;
     var msg = P._hadSlip ? "Done. You hit a slip and worked through it, which is exactly how this gets easier." : "Clean run on that one.";
-    $("ctrl").innerHTML = '<p class="prompt">Problem ' + R.pi + " complete. +10 XP</p><p style=\"color:var(--soft)\">" + esc(msg) + '</p><button type="button" class="btn primary" id="nextP">' + (more ? "Next problem →" : "Finish round") + "</button>";
+    $("ctrl").innerHTML = '<p class="prompt">Problem ' + R.pi + " done. +10 xp</p><p style=\"color:var(--soft)\">" + esc(msg) + '</p><button type="button" class="btn primary" id="nextP">' + (more ? "next problem →" : "finish the round") + "</button>";
     $("nextP").onclick = function () { if (more) startProblem(); else roundDone(); };
     $("nextP").focus();
   }
@@ -389,16 +389,16 @@
     var ri = H.rankInfo(res.totalXp), story = window.ARIA_STORY;
     prog();
     var rw = "";
-    if (res.chapter) rw += "<div><b>Story unlocked</b>NULL MOON · Chapter " + res.chapter + ": " + esc(story.chapters[res.chapter - 1].title) + "</div>";
-    if (res.rankUp) rw += "<div><b>Rank up</b>You are now " + esc(res.rankUp.name) + " " + esc(res.rankUp.jp) + "</div>";
-    res.badges.forEach(function (b) { rw += "<div><b>Badge</b>" + b.icon + " " + esc(b.name) + ": " + esc(b.about) + "</div>"; });
-    res.unlocks.forEach(function (u) { rw += "<div><b>Unlocked</b>" + esc(u) + "</div>"; });
-    if (R.fixed) rw += "<div><b>Slips fixed</b>" + R.fixed + ". Every one of those is a skill you used.</div>";
-    if (R.asked) rw += "<div><b>Questions asked</b>" + R.asked + ". Precise questions are how experts learn.</div>";
-    app.innerHTML = '<section class="panel done-card"><p class="ptag">' + esc(G.title) + ' · Round clear</p><h1 class="big">Mission Complete</h1><div class="xpg">+' + res.xp + " XP</div>" +
-      '<div class="xpbar" style="max-width:520px;margin:0 auto 22px"><div class="track"><div class="fill" id="dfill"></div></div><div class="lbl"><span>' + esc(ri.rank.name) + " · " + res.totalXp + " XP</span><span>" + (ri.next ? ri.toNext + " to " + esc(ri.next.name) : "Max rank") + "</span></div></div>" +
-      '<div class="rewards">' + rw + '</div><div class="row">' + (res.chapter ? '<a class="btn primary" href="../index.html?chapter=' + res.chapter + '">Read Chapter ' + res.chapter + "</a>" : "") +
-      '<button type="button" class="btn' + (res.chapter ? " ghost" : " primary") + '" id="again">Another round</button><a class="btn ghost" href="../index.html">Hub</a></div></section>';
+    if (res.chapter) rw += "<div><b>a chapter opened</b>null moon · chapter " + res.chapter + ": " + esc(story.chapters[res.chapter - 1].title) + "</div>";
+    if (res.rankUp) rw += "<div><b>something shifted</b>you are " + esc(res.rankUp.jp) + " · " + esc(res.rankUp.name) + " now</div>";
+    res.badges.forEach(function (b) { rw += "<div><b>keepsake found</b>" + b.icon + " " + esc(b.name) + ": " + esc(b.about) + "</div>"; });
+    res.unlocks.forEach(function (u) { rw += "<div><b>drifted in</b>" + esc(u) + "</div>"; });
+    if (R.fixed) rw += "<div><b>slips fixed</b>" + R.fixed + ". Every one of those is a skill you used.</div>";
+    if (R.asked) rw += "<div><b>questions asked</b>" + R.asked + ". Precise questions are how experts learn.</div>";
+    app.innerHTML = '<section class="panel done-card"><p class="ptag">' + esc(G.title) + ' · round finished</p><h1 class="big">' + esc(H.lex().done) + '</h1><div class="xpg">+' + res.xp + " xp</div>" +
+      '<div class="xpbar" style="max-width:520px;margin:0 auto 22px"><div class="track"><div class="fill" id="dfill"></div></div><div class="lbl"><span>' + esc(ri.rank.jp + " · " + ri.rank.name) + " · " + res.totalXp + " xp</span><span>" + (ri.next ? ri.toNext + " xp to " + esc(ri.next.jp + " · " + ri.next.name) : "the last rank") + "</span></div></div>" +
+      '<div class="rewards">' + rw + '</div><div class="row">' + (res.chapter ? '<a class="btn primary" href="../index.html?chapter=' + res.chapter + '">read chapter ' + res.chapter + "</a>" : "") +
+      '<button type="button" class="btn' + (res.chapter ? " ghost" : " primary") + '" id="again">another round</button><a class="btn ghost" href="../index.html">' + esc(H.lex().back) + '</a></div></section>';
     requestAnimationFrame(function () { setTimeout(function () { $("dfill").style.width = ri.pct + "%"; }, 60); });
     $("again").onclick = newRound;
   }

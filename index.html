@@ -6,79 +6,82 @@
   <meta name="format-detection" content="telephone=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Aria's Web">
-  <meta name="theme-color" content="#06060d">
-  <title>Aria's Web</title>
+  <meta name="theme-color" content="#e9eef6">
+  <title>aria's room</title>
   <link rel="icon" href="apple-touch-icon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Exo+2:wght@600;800&family=Orbitron:wght@600;800&family=Rajdhani:wght@500;600;700&family=Shippori+Mincho:wght@600;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=IBM+Plex+Mono:wght@400;500&family=Nunito:wght@400;600;700&family=Quicksand:wght@500;600&family=Shippori+Mincho:wght@500;600&family=VT323&display=swap">
   <link rel="stylesheet" href="css/hub.css">
   <script src="js/aria-core.js"></script>
 </head>
 <body class="hub">
   <header class="topbar">
-    <div class="brand"><span class="logo" id="logo">Aria's Web</span><span class="sub" id="hubSub">Command Deck</span></div>
+    <div class="brand"><span class="logo" id="logo">aria's room</span><span class="sub" id="hubSub">the soft room</span></div>
     <div id="kid-switch-slot"></div>
-    <button type="button" class="icon-btn" id="openCustomize" aria-label="Customize my hub">⚙ <span>My Hub</span></button>
+    <button type="button" class="icon-btn" id="openCustomize" aria-label="Customize my hub">✿ <span>my hub</span></button>
   </header>
 
   <main class="shell">
-    <section class="panel hero" aria-label="Player">
+    <section class="panel hero" aria-label="You">
+      <span class="whisper" id="heroWhisper" aria-hidden="true">you've been here before</span>
       <button type="button" class="avatar-wrap" id="heroAvatar" aria-label="Edit avatar"></button>
       <div>
-        <p class="hub-name" id="heroHub">Command Deck</p>
+        <p class="hub-name" id="heroHub">the soft room</p>
         <h1 id="heroName">Player</h1>
         <p class="ptitle" id="heroTitle"></p>
         <div class="rank-row">
           <span class="rank-chip" id="rankChip"></span>
           <div class="xpbar"><div class="track"><div class="fill" id="xpFill"></div></div><div class="lbl"><span id="xpNow"></span><span id="xpNext"></span></div></div>
-          <span class="stat-chip">Training days <b id="days">0</b></span>
-          <span class="stat-chip" id="runWrap" hidden>Current run <b id="run">0</b></span>
+          <span class="stat-chip">days visited <b id="days">0</b></span>
+          <span class="stat-chip" id="runWrap" hidden>in a row <b id="run">0</b></span>
         </div>
       </div>
     </section>
 
     <section class="section" aria-labelledby="mHead">
-      <div class="sec-head"><h2 id="mHead">Math Dojo</h2><span class="kj">道場</span><span class="line"></span><span class="note">5 problems · about 10 min · every round unlocks a chapter</span></div>
+      <div class="sec-head"><h2 id="mHead">the math rooms</h2><span class="kj" id="mKj">部屋</span><span class="line"></span><span class="note">five problems · ten quiet minutes · each round opens a chapter</span></div>
       <div class="grid missions" id="missions"></div>
     </section>
 
     <section class="section" aria-labelledby="sHead">
-      <div class="sec-head"><h2 id="sHead">Story Arc</h2><span class="kj">物語</span><span class="line"></span></div>
+      <div class="sec-head"><h2 id="sHead">the story</h2><span class="kj" id="sKj">物語</span><span class="line"></span></div>
       <div class="panel story-panel">
         <div>
-          <h3 class="story-title" id="storyTitle">NULL MOON<span class="jp">零の月</span></h3>
+          <h3 class="story-title" id="storyTitle">null moon<span class="jp">零の月</span></h3>
           <p class="season" id="storySeason"></p>
-          <p style="color:var(--soft);margin:12px 0 0">A girl who can see the seams of the world, and a city where anything imperfect gets erased. Finish a Math Dojo round to unlock the next chapter.</p>
+          <p style="color:var(--soft);margin:12px 0 0">A girl who can see the seams of the world, and a city where anything imperfect gets erased. Finish a round in the math rooms to open the next chapter.</p>
         </div>
         <div class="chapters" id="chapters"></div>
       </div>
     </section>
 
     <section class="section" aria-labelledby="tHead">
-      <div class="sec-head"><h2 id="tHead">Training Grounds</h2><span class="kj">修行</span><span class="line"></span></div>
+      <div class="sec-head"><h2 id="tHead">other rooms</h2><span class="kj" id="tKj">廊下</span><span class="line"></span></div>
       <div class="grid training" id="training"></div>
     </section>
 
     <section class="section" aria-labelledby="cHead">
-      <div class="sec-head"><h2 id="cHead">My Creations</h2><span class="kj">創作</span><span class="line"></span><span class="note">your songs, stories, and visual novels</span></div>
+      <div class="sec-head"><h2 id="cHead">things i made</h2><span class="kj" id="cKj">作品</span><span class="line"></span><span class="note">my creations: songs, stories, visual novels</span></div>
       <div class="grid shelf" id="shelf"></div>
     </section>
 
     <section class="section" aria-labelledby="bHead">
-      <div class="sec-head"><h2 id="bHead">Badges</h2><span class="kj">勲章</span><span class="line"></span><span class="note" id="badgeCount"></span></div>
+      <div class="sec-head"><h2 id="bHead">keepsakes</h2><span class="kj" id="bKj">宝物</span><span class="line"></span><span class="note" id="badgeCount"></span></div>
       <div class="grid badges" id="badges"></div>
     </section>
   </main>
 
+  <div class="floor" aria-hidden="true"></div>
   <footer class="foot">
+    <span class="whisper" id="footWhisper" aria-hidden="true"></span>
     <details>
-      <summary>For parents</summary>
-      <p>Everything Aria customizes (names, theme, avatar, background picture, creation links, XP, badges, and story progress) is saved only on this device's browser. Nothing is uploaded. Math Dojo rounds are 5 short problems, easiest first. Mistakes never cost XP; fixing a slip and asking a precise question with "Where am I stuck?" both earn XP. Practice and Treasure Map still cover English, Hebrew, Thai, Japanese, and Parsha. All voices are synthetic.</p>
+      <summary>for parents</summary>
+      <p>Everything Aria customizes (names, mood/theme, avatar symbol, background picture, creation links, XP, keepsakes (badges), and story progress) is saved only on this device's browser. Nothing is uploaded. Math rounds are 5 short problems, easiest first. Mistakes never cost XP; fixing a slip and asking a precise question with "Where am I stuck?" both earn XP. Practice and Treasure Map still cover English, Hebrew, Thai, Japanese, and Parsha. All voices are synthetic. Background pictures are original generated art with no people in them.</p>
     </details>
   </footer>
 

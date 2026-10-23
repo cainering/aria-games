@@ -1,46 +1,44 @@
-/* Aria's Web: night skin for the older pages (Practice, Treasure Map, Story Studio, Logic Grid).
-   Colors follow the theme she picked in My Hub (js/aria-core.js sets the --a1/--bg vars). */
+/* aria's room: dreamcore skin for the older pages (practice, the map, writing desk, puzzle wall).
+   Colors and the scene picture follow the mood she picked in my hub (js/aria-core.js sets the vars). */
 :root {
-  --bg: #06060d; --bg2: #120a24; --a1: #00f0ff; --a2: #ff2bd6; --text: #e9f7ff; --soft: #8fa6c4;
-  --font: -apple-system, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif;
-  --ink: #141226; --ink-soft: #4a4866; --line: #2a2840; --sun: var(--a1);
-  --shadow: 0 10px 30px rgba(0,0,0,.35);
+  --bg: #e9eef6; --wash: linear-gradient(rgba(240,245,252,.5), rgba(240,245,252,.5)); --a1: #9cc8f2; --a2: #f4b8c8; --a3: #bfe8d6; --text: #2c3550; --soft: #67708c;
+  --font: 'Nunito', -apple-system, 'SF Pro Text', system-ui, sans-serif; --display: 'Cormorant Garamond', Georgia, serif; --ui: 'IBM Plex Mono', ui-monospace, monospace;
+  --ink: #2c3550; --ink-soft: #5d6684; --line: rgba(80,100,150,.18); --sun: var(--a1);
+  --shadow: 0 14px 40px rgba(70,90,140,.16);
 }
 html { background: var(--bg); }
-body, body.home, body.game, .story-page {
-  font-family: var(--font) !important;
-  background: radial-gradient(1000px 600px at 90% -10%, color-mix(in srgb, var(--a2) 20%, transparent), transparent 60%),
-              radial-gradient(800px 600px at -10% 30%, color-mix(in srgb, var(--a1) 14%, transparent), transparent 60%),
-              linear-gradient(180deg, var(--bg2), var(--bg) 70%) fixed !important;
-}
-html[data-userbg] body { background: linear-gradient(rgba(0,0,0,var(--user-dim)), rgba(0,0,0,var(--user-dim))), var(--user-bg) center / cover fixed no-repeat, var(--bg) !important; }
+body, body.home, body.game, .story-page { font-family: var(--font) !important; background: transparent !important; }
+body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; background: var(--wash), var(--scene, none) center / cover no-repeat, var(--bg); filter: blur(3px) saturate(.9); transform: scale(1.04); }
+html[data-userbg] body::before { background: linear-gradient(rgba(240,245,252,var(--user-dim)), rgba(240,245,252,var(--user-dim))), var(--user-bg) center / cover no-repeat, var(--bg); filter: none; transform: none; }
+html[data-mode="dark"][data-userbg] body::before { background: linear-gradient(rgba(20,16,40,var(--user-dim)), rgba(20,16,40,var(--user-dim))), var(--user-bg) center / cover no-repeat, var(--bg); }
 .fx-canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; }
 .sky, .parade, .cloud { display: none !important; }
 body > header, body > main, body > section, body > footer, body > div:not(.fx-canvas) { position: relative; z-index: 1; }
-body > header h1, .quest-top h1, .story-top h1, .quest-top .tag, .story-top .tag, body > h1, .game-name { color: var(--text) !important; text-shadow: none !important; font-family: 'Rajdhani', var(--font) !important; letter-spacing: .06em; }
+body > header h1, .quest-top h1, .story-top h1, body > h1, .game-name { color: var(--text) !important; text-shadow: 0 0 18px rgba(255,255,255,.75) !important; font-family: var(--display) !important; font-style: italic; font-weight: 600 !important; letter-spacing: 0; text-transform: lowercase; }
+html[data-theme="weird"] body > header h1, html[data-theme="weird"] .quest-top h1, html[data-theme="weird"] .story-top h1 { font-family: 'Times New Roman', serif !important; font-style: normal; }
+html[data-mode="dark"] body > header h1, html[data-mode="dark"] .quest-top h1, html[data-mode="dark"] .story-top h1 { text-shadow: 0 0 18px rgba(190,170,255,.6) !important; }
+.quest-top .tag, .story-top .tag { color: var(--soft) !important; font-family: var(--ui) !important; text-transform: lowercase; letter-spacing: .02em; text-shadow: none !important; }
 .home-link, a.back, .story-top .home-link {
-  display: inline-flex; align-items: center; min-height: 46px; padding: 0 16px !important; border-radius: 12px !important;
-  border: 1px solid color-mix(in srgb, var(--a1) 45%, transparent) !important; background: rgba(10,10,24,.72) !important;
-  color: var(--text) !important; box-shadow: none !important; text-decoration: none; font-weight: 700; letter-spacing: .06em;
-  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  display: inline-flex; align-items: center; min-height: 46px; padding: 0 18px !important; border-radius: 999px !important;
+  border: 1px solid var(--line) !important; background: rgba(255,255,255,.62) !important;
+  color: #2c3550 !important; box-shadow: none !important; text-decoration: none; font-family: var(--ui) !important; font-weight: 500; text-transform: lowercase; letter-spacing: 0;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
 }
 .quest-top, .story-top { color: var(--text); }
 button, .btn, .q-choice { box-shadow: none !important; }
-.q-card, .quest-card, .story-card, .card, .panel, .kc-panel { border-radius: 16px !important; box-shadow: 0 18px 50px rgba(0,0,0,.4) !important; border-color: rgba(255,255,255,.12) !important; }
-.q-choice { border-radius: 12px !important; }
-.sun:not(.sky > .sun), button.sun { background: linear-gradient(90deg, var(--a1), var(--a2)) !important; color: #05050a !important; border: 0 !important; }
-.starbar { color: var(--a1) !important; }
+.q-card, .quest-card, .story-card, .card, .panel, .kc-panel { border-radius: 24px !important; box-shadow: var(--shadow) !important; border-color: rgba(255,255,255,.7) !important; background-color: rgba(255,255,255,.82) !important; color: #2c3550; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.q-choice { border-radius: 16px !important; }
+.sun:not(.sky > .sun), button.sun { background: linear-gradient(135deg, color-mix(in srgb, var(--a1) 80%, #fff), var(--a1)) !important; color: #2c3550 !important; border: 0 !important; border-radius: 999px !important; }
+.starbar { color: #5b6f9c !important; }
 .foot, .foot summary { color: var(--soft) !important; }
 /* Gentle feedback: no red. A miss fades softly. */
-.q-choice.right { background: #c9f2d0 !important; }
-.q-choice.wrong { background: #efe7ff !important; border-style: dashed !important; }
-/* LANTERNBLADE art banner kept for Story Studio */
-.lb-banner { margin: 8px auto 18px; max-width: 760px; border-radius: 16px; overflow: hidden; background: #000; }
+.q-choice.right { background: #d4f1e1 !important; }
+.q-choice.wrong { background: #f1ecfb !important; border-style: dashed !important; }
+.lb-banner { margin: 8px auto 18px; max-width: 760px; border-radius: 24px; overflow: hidden; background: #e9eef6; }
 .lb-banner img { display: block; width: 100%; max-height: 300px; object-fit: cover; object-position: center 35%; }
-
-/* Kid switcher in the night style */
-body #kid-switch .ks-btn { min-height: 46px !important; border: 1px solid rgba(255,255,255,.18) !important; border-radius: 12px !important; background: rgba(10,10,24,.72) !important; color: var(--text) !important; box-shadow: none !important; }
-body #kid-switch .ks-menu { background: var(--bg2) !important; border: 1px solid rgba(255,255,255,.18) !important; border-radius: 14px !important; }
-body #kid-switch .ks-link { color: var(--text) !important; }
-body #kid-switch .ks-link[aria-current=page] { background: color-mix(in srgb, var(--a1) 22%, transparent) !important; }
+/* kid switcher */
+body #kid-switch .ks-btn { min-height: 46px !important; border: 1px solid var(--line) !important; border-radius: 999px !important; background: rgba(255,255,255,.7) !important; color: #2c3550 !important; box-shadow: none !important; }
+body #kid-switch .ks-menu { background: rgba(255,255,255,.95) !important; border: 1px solid var(--line) !important; border-radius: 18px !important; }
+body #kid-switch .ks-link { color: #2c3550 !important; }
+body #kid-switch .ks-link[aria-current=page] { background: color-mix(in srgb, var(--a1) 30%, transparent) !important; }
 [hidden] { display: none !important; }

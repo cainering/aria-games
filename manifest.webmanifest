@@ -1,11 +1,11 @@
 {
-  "name": "Aria's Web",
-  "short_name": "Aria's Web",
+  "name": "aria's room",
+  "short_name": "aria's room",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#06060d",
-  "theme_color": "#06060d",
+  "background_color": "#e9eef6",
+  "theme_color": "#e9eef6",
   "icons": [
     {
       "src": "apple-touch-icon.png",

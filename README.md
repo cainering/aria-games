@@ -30,11 +30,11 @@ Only a parent changes settings, by editing `settings.js`. No passwords or keys a
 Push this folder to its own GitHub repo, turn on Pages (branch main, root).
 `CNAME` points at aria.cainhq.com; add a DNS CNAME record for that host to `<username>.github.io`.
 
-## 2026 makeover: Aria's hub + Math Dojo
+## 2026 makeover: aria's room (dreamcore hub) + the math rooms
 
-- `index.html` + `js/hub.js` + `css/hub.css`: dark game-menu hub. First visit runs a setup (site name, hub name, player name/title, theme, avatar sigil). Everything is saved in localStorage (`aria-hub-v1`, background picture in `aria-hub-bg`) and can be changed in **My Hub**. Nothing is uploaded anywhere.
-- `js/aria-core.js`: themes, ranks (Initiate → Master), XP, badges, unlocks, daily-run tracking (no penalty for missed days). `js/aria-fx.js`: background animation (respects reduced motion).
-- `math/`: four games (Carry Chain, Zero Shift, Order Protocol, Reality Check). `math/engine.js` generates rounds of 5, easiest first; `math/dojo.js` runs them, with "Where am I stuck?" hints.
+- `index.html` + `js/hub.js` + `css/hub.css`: dreamcore-style hub (Aria asked for dreamcore). First visit runs a setup (site name, room name, player name, mood/theme, avatar symbol). Everything is saved in localStorage (`aria-hub-v1`, background picture in `aria-hub-bg`) and can be changed in **My Hub**. Nothing is uploaded anywhere.
+- `js/aria-core.js`: moods/themes (dreamcore default, cloudcore, liminal pool, night dreamcore; weirdcore unlocks after the first round), quiet ranks (眠り sleeper → 目覚め awake), old-save migration (unknown theme → dreamcore), XP, badges, unlocks, daily-run tracking (no penalty for missed days). `js/aria-fx.js`: drifting clouds, slow-blinking eyes, stars, pool light (respects reduced motion). Scene pictures in `assets/dream/` are original generated art with no people.
+- `math/`: four games (the carrying room, the room of zeros, which door first, something feels off). `math/engine.js` generates rounds of 5, easiest first; `math/dojo.js` runs them, with "Where am I stuck?" hints.
 - `story/chapters.js`: NULL MOON, an original 10-chapter story; each finished round unlocks the next chapter.
 - Rainbow Cats, Spa Salon, and Ice Cream Scoop are retired from the hub (folders kept).
 - Test: `node tests/math-games.test.js` re-checks every generated answer over 3,000 rounds per game.
